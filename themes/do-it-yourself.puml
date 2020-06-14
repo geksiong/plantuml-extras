@@ -1,0 +1,487 @@
+'PlantUML Theme: Do-It-Yourself
+'---
+'My first PlantUML theme. I picked the colors myself. Only later do I realise the colors remind me of a popular furniture store, hence the name.
+'---
+'Created by Gek Siong Low
+'Copyright (c) 2020 Gek Siong Low
+
+!$THEME_NAME = "Do-It-Yourself"
+
+!if %not(%variable_exists("$THEME_PROP_FLAT"))
+!$THEME_PROP_FLAT = 0
+!endif
+
+'=== Color Scheme ===
+!$THEME_COLOR1       = "#bf211e"
+!$THEME_COLOR1_LIGHT = "#f95947"
+!$THEME_COLOR1_DARK  = "#870000"
+
+!$THEME_COLOR2       = "#ff8811"
+!$THEME_COLOR2_LIGHT = "#ffb94b"
+!$THEME_COLOR2_DARK  = "#c55900"
+
+!$THEME_COLOR3       = "#f5cb5c"
+!$THEME_COLOR3_LIGHT = "#fffe8c"
+!$THEME_COLOR3_DARK  = "#bf9a2b"
+
+!$THEME_COLOR4       = "#7fb685"
+!$THEME_COLOR4_LIGHT = "#b0e8b5"
+!$THEME_COLOR4_DARK  = "#518658"
+
+!$THEME_COLOR5       = "#33658a"
+!$THEME_COLOR5_LIGHT = "#6493ba"
+!$THEME_COLOR5_DARK  = "#003b5d"
+
+!$THEME_COLOR6       = "#fac9b8"
+!$THEME_COLOR6_LIGHT = "#fffcea"
+!$THEME_COLOR6_DARK  = "#c69888"
+
+!$THEME_COLOR7       = "#cfdbd5"
+!$THEME_COLOR7_LIGHT = "#f3f6f5"
+!$THEME_COLOR7_DARK  = "#9ea9a4"
+
+!$THEME_COLOR8       = "#9a879d"
+!$THEME_COLOR8_LIGHT = "#cbb7ce"
+!$THEME_COLOR8_DARK  = "#6c5a6f"
+
+!$THEME_FG           = "#333533"
+!$THEME_FG_LIGHT     = "#5c5f5c"
+!$THEME_FG_DARK      = "#0c0f0c"
+
+!$THEME_BG           = "#e8eddf"
+!$THEME_BG_LIGHT     = "#f6f8f2"
+!$THEME_BG_DARK      = "#b6bbad"
+
+'=== Typography ===
+'!$THEME_FONT= "Bradley Hand"
+'!$THEME_FONT= "Marker Felt"
+'!$THEME_FONT= "Comic Sans MS"
+'!$THEME_FONT= "Chalkboard"
+!$THEME_FONT = "Verdana"
+
+!$THEME_FONTSIZE_DEFAULT = 11
+!$THEME_FONTSIZE_TITLE = 16
+!$THEME_FONTSIZE_SUBTITLE = 13
+!$THEME_FONTSIZE_HEADER = 10
+!$THEME_FONTSIZE_FOOTER = 10
+!$THEME_FONTSIZE_SMALL = 10
+!$THEME_FONTSIZE_H1 = 14
+!$THEME_FONTSIZE_H2 = 12
+!$THEME_FONTSIZE_H3 = 11
+
+'=== Theme ===
+'--- Default ---
+!$THEME_PRIMARY = $THEME_COLOR3
+!$THEME_PRIMARY_LIGHT = $THEME_COLOR3_LIGHT
+!$THEME_PRIMARY_DARK = $THEME_COLOR3_DARK
+
+!$THEME_SECONDARY = $THEME_COLOR4
+!$THEME_SECONDARY_LIGHT = $THEME_COLOR4_LIGHT
+!$THEME_SECONDARY_DARK = $THEME_COLOR4_DARK
+
+!$THEME_ACCENT = $THEME_COLOR5
+!$THEME_ACCENT_LIGHT = $THEME_COLOR5_LIGHT
+!$THEME_ACCENT_DARK = $THEME_COLOR5_DARK
+
+!$THEME_SUCCESS = $THEME_COLOR4
+!$THEME_ERROR = $THEME_COLOR1
+!$THEME_WARN = $THEME_COLOR2
+!$THEME_INFO = $THEME_COLOR5
+
+!$THEME_LINE = $THEME_FG_LIGHT
+!$THEME_LINE_THIN = "0.4"
+!$THEME_LINE_THICK = "0.8"
+
+!$THEME_ARROW = $THEME_FG_DARK
+!$THEME_ARROW_THICKNESS = "2"
+
+'=== Style Helpers ===
+
+'--- Background colors ---
+!function $bgcolor($color="default", $type="light", $flat=$THEME_PROP_FLAT)
+!if ($color == "default")
+  !if ($flat == 0)
+  !return $THEME_PRIMARY + "-" + $THEME_COLOR2
+  !else
+  !return $THEME_PRIMARY
+  !endif
+!endif
+!if ($type == "light")
+  !$color1 = "$THEME_" + %upper($color) + "_LIGHT"
+  !$color2 = "$THEME_" + %upper($color) + ""
+  !$basecolor = $color2
+!else
+  !$color1 = "$THEME_" + %upper($color)
+  !$color2 = "$THEME_" + %upper($color) + "_DARK"
+  !$basecolor = $color1
+!endif
+!if ($flat == 0)
+  !return %get_variable_value($color1) + "/" + %get_variable_value($color2)
+!else
+  !return %get_variable_value($basecolor)
+!endif
+!endfunction
+!endprocedure
+
+
+'--- Object styles ---
+!procedure $style_container($color="BG")
+BackgroundColor $bgcolor($color)
+BorderColor $THEME_COLOR7
+BorderThickness $THEME_LINE_THIN
+!endprocedure
+
+!procedure $style_object($color="PRIMARY")
+BackgroundColor $bgcolor($color, "dark")
+BorderColor $THEME_LINE
+BorderThickness $THEME_LINE_THICK
+!endprocedure
+
+
+'--- Text Styles ---
+!procedure $success($msg)
+<color:$THEME_SUCCESS>$msg</color>
+!endprocedure
+
+!procedure $error($msg)
+<color:$THEME_ERROR>$msg</color>
+!endprocedure
+
+!procedure $warn($msg)
+<color:$THEME_WARN>$msg</color>
+!endprocedure
+
+!procedure $info($msg)
+<color:$THEME_INFO>$msg</color>
+!endprocedure
+
+!procedure $comment($msg)
+<i><color:$THEME_FG_LIGHT>$msg</color></i>
+!endprocedure
+
+!procedure $h1($msg)
+<b><size:$THEME_FONTSIZE_H1><color:$THEME_ACCENT_DARK>$msg</color></size></b>
+!endprocedure
+
+!procedure $h2($msg)
+<b><size:$THEME_FONTSIZE_H2><color:$THEME_ACCENT_DARK>$msg</color></size></b>
+!endprocedure
+
+!procedure $h3($msg)
+<i><size:$THEME_FONTSIZE_H3><color:$THEME_ACCENT_DARK>$msg</color></size></i>
+!endprocedure
+
+
+'=== Skins Parameters ===
+skinparam BackgroundColor transparent
+skinparam Shadowing true
+skinparam RoundCorner 10
+skinparam Handwritten false
+
+'--- Text ---
+
+skinparam Default {
+  FontName  $THEME_FONT
+  FontColor $THEME_FG
+  FontSize  $THEME_FONTSIZE_DEFAULT
+  FontStyle plain
+}
+
+skinparam Title {
+  FontSize $THEME_FONTSIZE_TITLE
+  FontColor $THEME_FG_DARK
+  FontStyle bold
+}
+
+skinparam Header {
+  FontSize $THEME_FONTSIZE_HEADER
+  FontColor $THEME_FG_LIGHT
+}
+
+skinparam Footer {
+  FontSize $THEME_FONTSIZE_FOOTER
+  FontColor $THEME_FG_LIGHT
+}
+
+skinparam Caption {
+  FontSize $THEME_FONTSIZE_DEFAULT
+  FontColor $THEME_FG
+}
+
+'--- Lines & Arrows ---
+
+skinparam Arrow {
+  Color $THEME_ARROW
+  Thickness $THEME_ARROW_THICKNESS
+}
+
+skinparam Border {
+  Color $THEME_LINE
+  BorderThickness $THEME_LINE_THICK
+}
+
+'--- Notes & Legends ---
+
+skinparam Note {
+  $style_container()
+}
+
+skinparam Legend {
+  $style_container()
+}
+
+'--- Activity Diagrams ---
+
+skinparam Activity {
+	StartColor $bgcolor("COLOR4", "dark")
+	EndColor $bgcolor("COLOR1", "dark")
+	BarColor $THEME_FG
+
+	Diamond {
+    BackgroundColor $bgcolor("ACCENT", "dark")
+    BorderColor $THEME_LINE
+    FontColor $THEME_BG
+  }
+  $style_object()
+}
+
+skinparam Swimlane {
+  BackgroundColor $THEME_COLOR7_LIGHT
+  BorderColor $THEME_COLOR7
+  BorderThickness $THEME_LINE_THIN
+}
+
+'--- Sequence Diagrams ---
+
+skinparam Sequence {
+  Group {
+    BackgroundColor $bgcolor("ACCENT", "dark")
+    HeaderFontColor $THEME_BG
+    BodyBackgroundColor $bgcolor("BG")
+    BorderColor $THEME_COLOR7
+    BorderThickness $THEME_LINE_THIN
+  }
+
+  Reference {
+    HeaderBackgroundColor $bgcolor("FG")
+    ' Reference header font color is taken from group
+    FontColor $THEME_FG
+    BackgroundColor $bgcolor("COLOR7")
+    BorderColor $THEME_COLOR7
+    BorderThickness $THEME_LINE_THIN
+  }
+
+  Divider {
+    BackgroundColor $bgcolor("ACCENT", "light")
+    BorderColor $THEME_COLOR8_DARK
+    BorderThickness $THEME_LINE_THIN
+    FontColor $THEME_BG
+  }
+
+  LifeLine {
+    BackgroundColor $bgcolor("COLOR7", "light")
+    BorderColor $THEME_COLOR7_DARK
+    BorderThickness 1.0
+  }
+
+  Box {
+    BackgroundColor $THEME_COLOR7_LIGHT
+    BorderColor $THEME_COLOR7
+    BorderThickness $THEME_LINE_THIN
+  }
+}
+
+skinparam Participant {
+  $style_object()
+  FontColor $THEME_FG
+}
+
+'--- Class Diagrams ---
+
+skinparam Class {
+  ' color gradients don't look correct on class headers. bug?
+  HeaderBackgroundColor $THEME_ACCENT
+  FontColor $THEME_BG
+  FontStyle bold
+  FontStyle<<abstract>> bold italics
+  FontStyle<<interface>> bold italics
+  FontSize $THEME_FONTSIZE_DEFAULT
+  ' Somehow generics is shared with stereotype color...
+  StereotypeFontColor $THEME_PRIMARY
+  StereotypeFontStyle italic
+  StereotypeFontSize 10
+
+  'BackgroundColor $THEME_PRIMARY
+  AttributeFontColor $THEME_FG
+  AttributeFontSize $THEME_FONTSIZE_DEFAULT
+  $style_object()
+}
+
+' There are 5 stereotypes, so need 5 colors
+' For visibility, they should be light colors
+skinparam Stereotype {
+  ABackgroundColor $bgcolor("COLOR6")
+  ABorderColor $THEME_COLOR6:w
+  CBackgroundColor $bgcolor("COLOR4")
+  CBorderColor $THEME_COLOR4
+  EBackgroundColor $bgcolor("COLOR3")
+  EBorderColor $THEME_COLOR3
+  IBackgroundColor $bgcolor("COLOR8")
+  IBorderColor $THEME_COLOR8
+  NBackgroundColor $bgcolor("COLOR1")
+  NBorderColor $THEME_COLOR1
+}
+
+skinparam CircledCharacter {
+  FontName $THEME_FONT
+  FontStyle bold
+}
+
+'--- Object Diagrams ---
+skinparam Object {
+  FontColor $THEME_FG
+  FontStyle bold
+  FontSize $THEME_FONTSIZE_DEFAULT
+  StereotypeFontColor $THEME_PRIMARY
+  StereotypeFontStyle italic
+  StereotypeFontSize 10
+  AttributeFontColor $THEME_FG
+  AttributeFontSize $THEME_FONTSIZE_DEFAULT
+  $style_object()
+}
+
+'--- State Diagrams ---
+' Note: When a State is nested, the diagram's BackgroundColor is used for its container,
+' so if it is transparent the parent State's background color will show through
+' which is a bummer...
+skinparam State {
+	StartColor $bgcolor("ACCENT", "dark")
+	EndColor $bgcolor("COLOR1", "dark")
+	BarColor $THEME_FG
+
+  FontColor $THEME_FG
+  FontStyle bold
+  FontSize $THEME_FONTSIZE_DFAULT
+  BorderColor $THEME_LINE
+  AttributeFontColor $THEME_FG
+  AttributeFontSize $THEME_FONTSIZE_DEFAULT
+  $style_object()
+}
+
+'--- Usecase / Component / Deployment Diagrams ---
+
+skinparam Actor {
+  $style_object()
+  FontColor $THEME_FG
+}
+
+skinparam Agent {
+  $style_object()
+}
+
+skinparam Artifact {
+  $style_object()
+}
+
+skinparam Boundary {
+  $style_object()
+}
+
+skinparam Card {
+  $style_object()
+}
+
+skinparam Cloud {
+  $style_container()
+}
+
+skinparam Component {
+  $style_object()
+}
+
+skinparam Control {
+  $style_object()
+}
+
+skinparam Database {
+  $style_object()
+}
+
+skinparam Entity {
+  $style_object()
+}
+
+skinparam File {
+  $style_object()
+}
+
+skinparam Folder {
+  $style_container()
+}
+
+skinparam Frame {
+  $style_container()
+}
+
+skinparam Interface {
+  $style_object()
+}
+
+skinparam Node {
+  $style_container()
+}
+
+' NOTE: namespaces are also packages
+skinparam Package {
+  $style_container()
+  FontStyle bold
+}
+
+skinparam Partition {
+  $style_container()
+  FontStyle bold
+}
+
+skinparam Queue {
+  $style_object()
+}
+
+skinparam Rectangle {
+  $style_container()
+}
+
+skinparam Stack {
+  $style_object()
+}
+skinparam Storage {
+  $style_object()
+}
+skinparam Usecase {
+  $style_object()
+}
+
+'=== Additional Helpers ===
+!procedure $simpleFooter()
+Generated %date("yyyy-MM-dd HH:mm")\n \
+with PlantUML ver %version()\n \
+styled with $THEME_NAME theme
+!endprocedure
+
+' -- show all theme colors
+!procedure $themeInfo()
+skinparam titleFontStyle plain
+title
+**$THEME_NAME theme colors**
+| |= 1 |= 2 |= 3 |= 4 |= 5 |= 6 |= 7 |= 8 |= fg |= bg |
+| light |<$THEME_COLOR1_LIGHT> | <$THEME_COLOR2_LIGHT> | <$THEME_COLOR3_LIGHT> |<$THEME_COLOR4_LIGHT> | <$THEME_COLOR5_LIGHT> | <$THEME_COLOR6_LIGHT> | <$THEME_COLOR7_LIGHT>  | <$THEME_COLOR8_LIGHT> | <$THEME_FG_LIGHT> | <$THEME_BG_LIGHT> |
+| normal |<$THEME_COLOR1> | <$THEME_COLOR2> | <$THEME_COLOR3> |<$THEME_COLOR4> | <$THEME_COLOR5> | <$THEME_COLOR6> |<$THEME_COLOR7> | <$THEME_COLOR8> | <$THEME_FG> | <$THEME_BG> |
+| dark |<$THEME_COLOR1_DARK> | <$THEME_COLOR2_DARK> | <$THEME_COLOR3_DARK> |<$THEME_COLOR4_DARK> | <$THEME_COLOR5_DARK> | <$THEME_COLOR6_DARK> |<$THEME_COLOR7_DARK> | <$THEME_COLOR8_DARK> | <$THEME_FG_DARK> | <$THEME_BG_DARK> |
+| primary | <$THEME_PRIMARY> |
+| secondary | <$THEME_SECONDARY> |
+| accent | <$THEME_ACCENT> |
+| success | <$THEME_SUCCESS> |
+| error | <$THEME_ERROR> |
+| warn | <$THEME_WARN> |
+| info | <$THEME_INFO> |
+end title
+!endprocedure
