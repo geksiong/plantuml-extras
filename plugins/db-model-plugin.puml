@@ -1,0 +1,85 @@
+' Database Modelling Plugin for PlantUML
+' ---
+' Utility functions and skin to assist in the drawing of database models in PlantUML.
+' I adapted the concept from https://gist.github.com/QuantumGhost/0955a45383a0b6c0bc24f9654b3cb561
+' which in turn is based on https://forum.plantuml.net/?qa=331/database-modeling
+' ---
+' Copyright (c) 2020 Gek Siong Low
+
+!ifndef $THEME_NAME
+  skinparam roundcorner 10
+  skinparam Class {
+    FontStyle<<Table>> plain
+    BackgroundColor<<Table>> #ffffff
+    HeaderBackgroundColor<<Table>> #eeeeee
+    BorderColor<<Table>> #999999
+    BorderThickness<<Table>> 0.5
+    AttributeFontSize<<Table>> 11
+    ArrowColor #333333
+    ArrowThickness 2
+  }
+  ' if theme is loaded, theme will set these
+  !$DB_TableTitleColor = "#000000"
+  !$DB_TableDescColor = "#666666"
+  !$DB_FieldColor = "#000000"
+  !$DB_AnnotationColor = "#666666"
+  !$DB_TypeColor = "#999999"
+  !$DB_IconDefaultColor = "#666666"
+  !$DB_IconInvisibleColor = "#ffffff"
+  !$DB_IconPKColor = $DB_IconDefaultColor
+  !$DB_IconFKColor = $DB_IconDefaultColor
+  !$DB_IconUniqueColor = $DB_IconInvisibleColor
+  !$DB_IconNotNullableColor = $DB_IconInvisibleColor
+  !$DB_IconNullableColor = $DB_IconInvisibleColor
+!endif
+
+hide methods
+hide stereotypes
+hide circle
+
+' Database Table
+!procedure $table($name, $title, $desc)
+entity $name as "<color:$DB_TableTitleColor>**$title**\n<color:$DB_TableDescColor>//$desc//</color>" << (T, #FFAAAA) Table >>
+!endprocedure
+
+' Database Field
+' -- primary / foreign keys: bold
+' -- unique: italics
+' -- not_null: underline
+' TODO: add color
+' TODO: styles (global setting) - use icons, text formats, or both
+!procedure $field($name, $type, $pk=0, $fk=0, $not_null=0, $unique=0)
+!$icon = "<&question-mark>"
+!$icon_color = $DB_IconNullableColor
+!$format_start = ""
+!$format_end = ""
+!$annotation = ""
+!if %not($pk == 0)
+  !$icon = "<&key>"
+  !$icon_color = $DB_IconPKColor
+  !$format_start = "<b>"
+  !$format_end = "</b>"
+  !$annotation = "<pk>"
+  !$nullable = 0
+!elseif %not($fk == 0)
+  !$icon = "<&link-intact>"
+  !$icon_color = $DB_IconFKColor
+  !$format_start = "<b>"
+  !$format_end = "</b>"
+  !$annotation = "<fk>"
+  !$nullable = 0
+!elseif %not($unique == 0)
+  !$icon = "<&tag>"
+  !$icon_color = $DB_IconUniqueColor
+  !$format_start = "<i>"
+  !$format_end = "</i>"
+!elseif %not($not_null == 0)
+  !$icon = "<&minus>"
+  !$icon_color = $DB_IconNotNullableColor
+  !$format_start = "<u>"
+  !$format_end = "</u>"
+!endif
+!$output = "<color:" + $icon_color + ">" + $icon + "</color> <color:" + $DB_FieldColor + ">" + $format_start + $name + $format_end + "</color><color:" + $DB_AnnotationColor + ">" +  $annotation + "</color>  <color:" + $DB_TypeColor + ">" + $type + "</color>"
+$output
+!end procedure
+
