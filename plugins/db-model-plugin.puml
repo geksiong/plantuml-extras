@@ -83,3 +83,18 @@ entity $name as "<color:$DB_TableTitleColor>**$title**\n<color:$DB_TableDescColo
 $output
 !end procedure
 
+' Relations
+' -- notation is based on that used by dbdiagrams.io
+' -- many-to-one: >
+' -- one-to-many: <
+' -- one-to-one: -
+' Note: there is no many-to-many because you are supposed to use another table to link the two sides
+!procedure $rel($from, $rel, $to, $label)
+!if ($rel == ">")
+$from "*" -- "1" $to: $label
+!elseif ($rel == "<")
+$from "1" -- "*" $to: $label
+!elseif ($rel == "-")
+$from "1" -- "1" $to: $label
+!end procedure
+
