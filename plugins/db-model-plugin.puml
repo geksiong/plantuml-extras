@@ -39,7 +39,17 @@ hide circle
 
 ' Database Table
 !procedure $table($name, $title, $desc)
-entity $name as "<color:$DB_TableTitleColor>**$title**\n<color:$DB_TableDescColor>//$desc//</color>" << (T, #FFAAAA) Table >>
+!if ($title == "")
+  !$tbl_title = $name
+!else
+  !$tbl_title = $title
+!endif
+!if ($desc == "")
+  !$tbl_desc = ""
+!else
+  !$tbl_desc = "\n<color:" + $DB_TableDescColor + ">//" + $desc + "//</color>"
+!endif
+entity $name as "<color:$DB_TableTitleColor><b>$tbl_title</b>$tbl_desc" << (T, #FFAAAA) Table >>
 !endprocedure
 
 ' Database Field
