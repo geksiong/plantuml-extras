@@ -100,11 +100,16 @@ $output
 ' -- one-to-one: -
 ' Note: there is no many-to-many because you are supposed to use another table to link the two sides
 !procedure $rel($from, $rel, $to, $label)
+!if ($label == "")
+  !$fmt_label = ""
+!else
+  !$fmt_label = ":" + $label
+!endif
 !if ($rel == ">")
-$from "*" -- "1" $to: $label
+$from "*" -- "1" $to $fmt_label
 !elseif ($rel == "<")
-$from "1" -- "*" $to: $label
+$from "1" -- "*" $to $fmt_label
 !elseif ($rel == "-")
-$from "1" -- "1" $to: $label
+$from "1" -- "1" $to $fmt_label
 !end procedure
 
