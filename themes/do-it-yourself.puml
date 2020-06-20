@@ -337,6 +337,20 @@ skinparam CircledCharacter {
   FontStyle bold
 }
 
+' Methods & fields visibility
+skinparam Icon {
+  IEMandatoryColor $THEME_FG_DARK
+  PackageColor $THEME_COLOR5_DARK
+  PackageBackgroundColor $THEME_COLOR5
+  PrivateColor $THEME_COLOR1_DARK
+  PrivateBackgroundColor $THEME_COLOR1
+  ProtectedColor $THEME_COLOR3_DARK
+  ProtectedBackgroundColor $THEME_COLOR3
+  PublicColor $THEME_COLOR4_DARK
+  PublicBackgroundColor $THEME_COLOR4
+}
+
+
 '--- Object Diagrams ---
 skinparam Object {
   FontColor $THEME_FG
