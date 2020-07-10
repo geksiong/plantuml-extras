@@ -1,0 +1,49 @@
+@startuml
+!$THEME_PROP_FLAT=1
+'!include ../themes/do-it-yourself.puml
+!include db-model-plugin.puml
+
+'skinparam linetype ortho
+'skinparam shadowing false
+
+$table("user", "user", "User in our system") {
+  $field("id", "integer", $pk=1)
+  $field("username", "varchar(32)", $unique=1, $not_null=1)
+  $field("password", "varchar(64)", $not_null=1)
+}
+
+$table("session", "session", "session for user") {
+  $field("id", "integer", $pk=1)
+  $field("user_id", "integer", $fk=1, $not_null=1)
+}
+
+$table("user_profile", "user_profile", "Some info of user") {
+  $field("user_id", "integer", $fk=1)
+  $field("gender", "varchar(15)")
+  $field("birthday", "datetime")
+  --Notes--
+  Space to enter notes \nabout this table
+}
+
+$table("group", "group", "group of users") {
+  $field("id", "integer", $pk=1)
+  $field("name", "varchar(32)", $not_null=1)
+}
+
+$table("user_group", "user_group", "user-group mapping") {
+  $field("(user_id, group_id)", "composite", $pk=1)
+  $field("user_id", "integer")
+  $field("group_id", "integer")
+  $field("joined_at", "datetime")
+}
+
+' relationships
+' one-to-one relationship
+$rel("user", "-", "user_profile", "A user only \nhas one profile")
+' one-to-many relationship
+$rel("user", "<", "session", "A user may have\n many sessions")
+' many-to-many relationship
+$rel("user", "<", "user_group", "A user may be \nin many groups")
+$rel("group", "<", "user_group", "A group may \ncontain many users")
+
+@enduml

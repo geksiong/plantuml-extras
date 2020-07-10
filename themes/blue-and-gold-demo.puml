@@ -1,0 +1,5 @@
+@startuml
+!include blue-and-gold.puml
+!include include/themeinfo.iuml
+!include include/diagrams.iuml
+@enduml
