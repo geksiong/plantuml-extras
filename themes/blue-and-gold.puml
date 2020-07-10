@@ -125,10 +125,10 @@
 
 
 '--- Object styles ---
-!procedure $style_container($color="BG")
+!procedure $style_container($color="COLOR7")
 BackgroundColor $bgcolor($color)
-BorderColor $THEME_COLOR7
-BorderThickness $THEME_LINE_THIN
+BorderColor $THEME_COLOR7_DARK
+BorderThickness $THEME_LINE_THICK
 !endprocedure
 
 !procedure $style_object($color="PRIMARY")
@@ -406,6 +406,10 @@ skinparam Card {
 }
 
 skinparam Cloud {
+  $style_container()
+}
+
+skinparam Collections {
   $style_container()
 }
 
