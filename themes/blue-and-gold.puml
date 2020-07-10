@@ -1,11 +1,11 @@
-'PlantUML Theme: Do-It-Yourself
+'PlantUML Theme: Blue and Gold
 '---
-'My first PlantUML theme. I picked the colors myself. Only later do I realise the colors remind me of a popular furniture store, hence the name.
+'My first PlantUML theme.
 '---
 'Created by Gek Siong Low
 'Copyright (c) 2020 Gek Siong Low
 
-!$THEME_NAME = "Do-It-Yourself"
+!$THEME_NAME = "Blue and Gold"
 
 !if %not(%variable_exists("$THEME_PROP_FLAT"))
 !$THEME_PROP_FLAT = 0
