@@ -1,0 +1,16 @@
+note as themeinfo #white
+{{
+  $themeInfo()
+}}
+= Styles
+$h1("heading 1")
+$h2("heading 2")
+$h3("heading 3")
+Plain text
+$success("success")
+$error("error")
+$warn("warn")
+$info("info")
+$comment("comment")
+end note
+
