@@ -110,7 +110,7 @@ $output
 ' -- one-to-many: <
 ' -- one-to-one: -
 ' Note: there is no many-to-many because you are supposed to use another table to link the two sides
-!procedure $rel($from, $rel, $to, $label)
+!procedure $rel($from, $rel, $to, $label, $style="solid")
 !if ($DB_REL_STYLE == "martin")
   !$zero_or_many_left = '"*" '
   !$zero_or_many_right = ' "*"'
@@ -125,16 +125,25 @@ $output
   !$exactly_one = "||"
 !endif
 
+!if ($style == "dotted")
+  !$line = ".."
+!else
+  !$line = "--"
+!endif
+
 !if ($label == "")
   !$fmt_label = ""
 !else
   !$fmt_label = ":" + $label
 !endif
+
 !if ($rel == ">")
-$from $zero_or_many_left--$exactly_one $to $fmt_label
+  !$arrow = $zero_or_many_left + $line + $exactly_one
 !elseif ($rel == "<")
-$from $exactly_one--$zero_or_many_right $to $fmt_label
+  !$arrow = $exactly_one + $line + $zero_or_many_right
 !elseif ($rel == "-")
-$from $exactly_one--$exactly_one $to $fmt_label
+  !$arrow = $exactly_one + $line + $exactly_one
+!endif
+$from $arrow $to $fmt_label
 !end procedure
 
