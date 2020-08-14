@@ -65,11 +65,9 @@ entity $tbl_name as "<color:$DB_TableTitleColor><b>$tbl_title</b>$tbl_desc" << (
 !endprocedure
 
 ' Database Field
-' -- primary / foreign keys: bold
-' -- unique: italics
+' -- primary / foreign keys: bold with annotation
+' -- unique: bold
 ' -- not_null: underline
-' TODO: add color
-' TODO: styles (global setting) - use icons, text formats, or both
 !procedure $field($name, $type, $pk=0, $fk=0, $not_null=0, $unique=0)
 !$icon = "<&question-mark>"
 !$icon_color = $DB_IconNullableColor
@@ -93,8 +91,8 @@ entity $tbl_name as "<color:$DB_TableTitleColor><b>$tbl_title</b>$tbl_desc" << (
 !elseif %not($unique == 0)
   !$icon = "<&tag>"
   !$icon_color = $DB_IconUniqueColor
-  !$format_start = "<i>"
-  !$format_end = "</i>"
+  !$format_start = "<b>"
+  !$format_end = "</b>"
 !elseif %not($not_null == 0)
   !$icon = "<&minus>"
   !$icon_color = $DB_IconNotNullableColor
