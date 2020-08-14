@@ -22,6 +22,12 @@
     ArrowColor #333333
     ArrowThickness 2
   }
+  skinparam Note {
+    BackgroundColor #ffffff
+    BorderColor #999999
+    BorderThickness 0.5
+    FontSize 11
+  }
   ' if theme is loaded, theme will set these
   !$DB_TableTitleColor = "#000000"
   !$DB_TableDescColor = "#666666"
