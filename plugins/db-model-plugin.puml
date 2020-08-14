@@ -50,6 +50,7 @@ hide circle
 ' Database Table
 ' note: Must use 'entity' as 'class' cannot process lines with parens
 !procedure $table($name, $title, $desc)
+!$tbl_name = "tbl_" + $name
 !if ($title == "")
   !$tbl_title = $name
 !else
@@ -60,7 +61,7 @@ hide circle
 !else
   !$tbl_desc = "\n<color:" + $DB_TableDescColor + ">//" + $desc + "//</color>"
 !endif
-entity $name as "<color:$DB_TableTitleColor><b>$tbl_title</b>$tbl_desc" << (T, #FFAAAA) Table >>
+entity $tbl_name as "<color:$DB_TableTitleColor><b>$tbl_title</b>$tbl_desc" << (T, #FFAAAA) Table >>
 !endprocedure
 
 ' Database Field
@@ -111,6 +112,8 @@ $output
 ' -- one-to-one: -
 ' Note: there is no many-to-many because you are supposed to use another table to link the two sides
 !procedure $rel($from, $rel, $to, $label, $style="solid")
+!$tbl_from = "tbl_" + $from
+!$tbl_to = "tbl_" + $to
 !if ($DB_REL_STYLE == "martin")
   !$zero_or_many_left = '"*" '
   !$zero_or_many_right = ' "*"'
@@ -144,6 +147,6 @@ $output
 !elseif ($rel == "-")
   !$arrow = $exactly_one + $line + $exactly_one
 !endif
-$from $arrow $to $fmt_label
+$tbl_from $arrow $tbl_to $fmt_label
 !end procedure
 
