@@ -6,6 +6,10 @@
 ' ---
 ' Copyright (c) 2020 Gek Siong Low
 
+' Define the default relationship notation style
+' Valid values: crow, chen, martin
+!$DB_REL_STYLE = "crow"
+
 !ifndef $THEME_NAME
   skinparam roundcorner 10
   skinparam Class {
@@ -38,6 +42,7 @@ hide stereotypes
 hide circle
 
 ' Database Table
+' note: Must use 'entity' as 'class' cannot process lines with parens
 !procedure $table($name, $title, $desc)
 !if ($title == "")
   !$tbl_title = $name
@@ -100,16 +105,30 @@ $output
 ' -- one-to-one: -
 ' Note: there is no many-to-many because you are supposed to use another table to link the two sides
 !procedure $rel($from, $rel, $to, $label)
+!if ($DB_REL_STYLE == "martin")
+  !$zero_or_many_left = '"*" '
+  !$zero_or_many_right = ' "*"'
+  !$exactly_one = ' "1" '
+!elseif ($DB_REL_STYLE == "chen")
+  !$zero_or_many_left = '"N" '
+  !$zero_or_many_right = ' "N"'
+  !$exactly_one = ' "1" '
+!else
+  !$zero_or_many_left = "}o"
+  !$zero_or_many_right = "o{"
+  !$exactly_one = "||"
+!endif
+
 !if ($label == "")
   !$fmt_label = ""
 !else
   !$fmt_label = ":" + $label
 !endif
 !if ($rel == ">")
-$from "*" -- "1" $to $fmt_label
+$from $zero_or_many_left--$exactly_one $to $fmt_label
 !elseif ($rel == "<")
-$from "1" -- "*" $to $fmt_label
+$from $exactly_one--$zero_or_many_right $to $fmt_label
 !elseif ($rel == "-")
-$from "1" -- "1" $to $fmt_label
+$from $exactly_one--$exactly_one $to $fmt_label
 !end procedure
 
