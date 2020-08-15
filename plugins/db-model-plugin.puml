@@ -40,7 +40,7 @@
   !$DB_IconFKColor = $DB_IconDefaultColor
   !$DB_IconUniqueColor = $DB_IconInvisibleColor
   !$DB_IconNotNullableColor = $DB_IconInvisibleColor
-  !$DB_IconNullableColor = $DB_IconInvisibleColor
+  !$DB_IconNullableColor = $DB_IconDefaultColor
 !endif
 
 hide methods
@@ -67,12 +67,13 @@ entity $tbl_name as "<color:$DB_TableTitleColor><b>$tbl_title</b>$tbl_desc" << (
 ' Database Field
 ' -- primary / foreign keys: bold with annotation
 ' -- unique: bold
-' -- not_null: underline
+' -- not_null: plain
+' -- nullable: italics (means default is italics if nothing is specified)
 !procedure $field($name, $type, $pk=0, $fk=0, $not_null=0, $unique=0)
 !$icon = "<&question-mark>"
 !$icon_color = $DB_IconNullableColor
-!$format_start = ""
-!$format_end = ""
+!$format_start = "<i>"
+!$format_end = "</i>"
 !$annotation = ""
 !if %not($pk == 0)
   !$icon = "<&key>"
@@ -96,8 +97,8 @@ entity $tbl_name as "<color:$DB_TableTitleColor><b>$tbl_title</b>$tbl_desc" << (
 !elseif %not($not_null == 0)
   !$icon = "<&minus>"
   !$icon_color = $DB_IconNotNullableColor
-  !$format_start = "<u>"
-  !$format_end = "</u>"
+  !$format_start = ""
+  !$format_end = ""
 !endif
 !$output = "<color:" + $icon_color + ">" + $icon + "</color> <color:" + $DB_FieldColor + ">" + $format_start + $name + $format_end + "</color><color:" + $DB_AnnotationColor + ">" +  $annotation + "</color>  <color:" + $DB_TypeColor + ">" + $type + "</color>"
 $output
